@@ -59,8 +59,8 @@ class PEFDLoss(nn.Layer):
         f_s = 0.0
         for i in range(q):
             f_s += self.projectors[i](student_feature)
-        f_s = f_s / q
-        f_t = teacher_feature
+        f_s = (f_s / q).flatten(1)
+        f_t = teacher_feature.flatten(1)
 
         # inner product (normalize first and inner product)
         normft = f_t.pow(2).sum(1, keepdim=True).pow(1. / 2)
